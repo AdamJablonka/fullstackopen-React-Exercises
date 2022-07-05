@@ -1,7 +1,5 @@
 import  { useState } from 'react'
 
-
-
 const Button = ( {text, clickHandler}) => {
   return (
     <button onClick={clickHandler}>{text}</button>
@@ -54,8 +52,6 @@ const App = () => {
     }
       return maxIndex
   }
-  
-  console.log(mostVotes)
 
   return(
     <div>
