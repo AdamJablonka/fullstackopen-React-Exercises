@@ -1,45 +1,8 @@
-import { useState } from 'react'
-
-// Persons componenent
-const Persons = ( {personsToShow} ) => {
-  return(
-    <div>
-      {personsToShow.map(person =>
-        <Person key={person.name} person={person} />
-      )}
-    </div>
-  )
-}
-
-// SearchFilter component
-const SearchFilter = ( {changeHandler} ) => 
-    <form> 
-      filter shown with <input onChange={changeHandler} /> 
-    </form>
-
-// AddPersonForm componenet
-const AddPersonForm = ( {addPerson, handleNameChange, handleNumberChange}) => {
-
-  return(
-    <form onSubmit={addPerson}>
-          <div>
-            name: <input onChange={handleNameChange} />
-            <br></br>
-            number: <input onChange={handleNumberChange} />
-          </div>
-          <div>
-            <button type="submit">add</button>
-          </div>
-        </form>
-  )
-}
- 
-// Person Component
-const Person = ( {person} ) => {
-  return(
-    <p>{person.name} ({person.number})</p>
-  )
-}
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import Persons from './components/Persons'
+import AddPersonForm from './components/AddPersonForm'
+import SearchFilter from './components/SearchFilter'
 
 // Root App Component
 const App = () => {
@@ -50,13 +13,19 @@ const App = () => {
     }
     return false
   } 
+  
+  const [persons, setPersons] = useState([])
+  const hook = () => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(res => {
+        console.log('promise fulfilled')
+        setPersons(res.data)
+      })
+  }
 
-  const [persons, setPersons] = useState([
-    { 
-      name: 'Arto Hellas',
-      number: '555-5555'
-    }
-  ])
+  useEffect(hook, [])
+
   // State declarations
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
