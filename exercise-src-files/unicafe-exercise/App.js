@@ -8,11 +8,11 @@ const Header = ( {header} ) => (
   </div>
 )
 
-const StatisticLine = (props) => {
-  return(
-        <tr><td>{props.text}</td><td>{props.value}</td></tr>
-  )
-}
+const StatisticLine = (props) =>
+  <tr>
+    <td>{props.text}</td>
+    <td>{props.value}</td>
+  </tr>
 
 const Statistics = ( {good, neutral, bad, all, positive} ) => {
   if(all === 0)
@@ -35,12 +35,13 @@ const Statistics = ( {good, neutral, bad, all, positive} ) => {
   )
 }
 
-const Button = ( {text, clickHandler}) => (
+const Button = ( {text, clickHandler}) => 
   <button onClick={clickHandler}>{text}</button>
-)
 
 // App root component
 const App = () => {
+  
+  // state declarations
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
